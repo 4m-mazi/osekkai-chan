@@ -6,6 +6,7 @@ name: release-please
 
 jobs:
   release-please:
+    if: github.repository_owner == '4m-mazi'
     permissions:
       contents: write
       pull-requests: write
@@ -19,3 +20,38 @@ jobs:
         with:
           config-file: .github/files/release-please/release-please-config.json
           manifest-file: .github/files/release-please/.release-please-manifest.json
+
+  docker-publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    permissions:
+      contents: write
+      packages: write
+    uses: ./.github/workflows/build.yml
+    with:
+      tag-name: ${{ needs.release-please.outputs.tag_name }}
+
+  follow_up-pr:
+    needs: [release-please, docker-publish]
+    if: ${{ needs.release-please.outputs.release_created }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create published label
+        run: |
+          gh label create 'autorelease: published' --color=EDEDED || true
+      - name: Get PR number
+        id: pr-number
+        run: |
+          echo "pr_number=$(printf '${{ github.event.head_commit.message }}' | head -n1 | sed -nE 's/.+\(#([0-9]+)\)$/\1/p')" >> "$GITHUB_OUTPUT"
+      - name: Add comment to PR
+        run: |
+          printf ':robot: Successfully published to ${{ needs.docker-publish.outputs.image_url }} :truck:\n```\n${{ join(needs.docker-publish.outputs.image_tags, '\n') }}\n```' \
+          | gh pr comment ${{ steps.pr-number.outputs.pr_number }} --body-file=-
+      - name: Change labels on PR
+        run: |
+          gh pr edit ${{ steps.pr-number.outputs.pr_number }} \
+          --remove-label='autorelease: tagged' \
+          --add-label='autorelease: published'
