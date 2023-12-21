@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.1...v0.1.2) (2023-12-21)
+
+
+### Continuous Integration
+
+* no-default-featuresの追加 ([#19](https://github.com/4m-mazi/osekkai-chan/issues/19)) ([740283f](https://github.com/4m-mazi/osekkai-chan/commit/740283f0aaf1dcb1bfac11bf01dac4e49db59d89))
+
 ## [0.1.1](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.0...v0.1.1) (2023-12-21)
 
 
