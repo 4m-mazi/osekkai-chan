@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.2...v0.1.3) (2023-12-25)
+
+
+### Dependencies
+
+* update rust crate futures to v0.3.30 ([#24](https://github.com/4m-mazi/osekkai-chan/issues/24)) ([1cc8d03](https://github.com/4m-mazi/osekkai-chan/commit/1cc8d0393f6399f62ddb3b88adea00ef2eaf24da))
+* 証明書がないエラーの修正 ([#25](https://github.com/4m-mazi/osekkai-chan/issues/25)) ([a6e4be3](https://github.com/4m-mazi/osekkai-chan/commit/a6e4be3001d9dc0dc29346ed822f9d7034362e9b))
+
 ## [0.1.2](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.1...v0.1.2) (2023-12-21)
 
 
