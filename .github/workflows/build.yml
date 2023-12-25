@@ -65,7 +65,7 @@ jobs:
         with:
           tool: cross
       - run: mkdir dist
-      - run: ${{ (!matrix.os && matrix.use-cross) && 'cross' || 'cargo' }} rustc --locked --release --no-default-features --target=${{ matrix.target }} -- --emit=link=dist/binary
+      - run: ${{ (!matrix.os && matrix.use-cross) && 'cross' || 'cargo' }} rustc --locked --release --features webpki --no-default-features --target=${{ matrix.target }} -- --emit=link=dist/binary
       - uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4.0.0
         with:
           name: ${{ matrix.target }}
