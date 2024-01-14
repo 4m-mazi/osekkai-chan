@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.4](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.3...v0.1.4) (2024-01-14)
+
+
+### Dependencies
+
+* twilightのdefault-featuresを置き換え ([#45](https://github.com/4m-mazi/osekkai-chan/issues/45)) ([22b097f](https://github.com/4m-mazi/osekkai-chan/commit/22b097f05c24210d0c9907ab466b691721739c32))
+* いつもwebpkiを使うように変更 ([#42](https://github.com/4m-mazi/osekkai-chan/issues/42)) ([8dc4aaa](https://github.com/4m-mazi/osekkai-chan/commit/8dc4aaa19ac574e3aef1b8b52d2b7db346eade90)), closes [#32](https://github.com/4m-mazi/osekkai-chan/issues/32)
+
 ## [0.1.3](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.2...v0.1.3) (2023-12-25)
 
 
