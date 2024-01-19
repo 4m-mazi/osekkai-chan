@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.6.0@sha256:ac85f380a63b13dfcefa89046420e1781752bab202122f8f50032edf31be0021
 
-FROM --platform=$BUILDPLATFORM busybox:1.36.1-uclibc@sha256:a89079a96fd4017f2d4abe1a40dc3f9755d205a19b79bfa4abac629beb821d0a AS env
+FROM --platform=$BUILDPLATFORM busybox:1.36.1-uclibc@sha256:cc71f45a5a48738c4c295314b2bc9bcc18eb0c33e7bb127c3735b751b724141b AS env
 ARG TARGETPLATFORM
 RUN --mount=type=bind,source=artifact,target=artifact \
     if [ "$TARGETPLATFORM" = 'linux/amd64' ]; then\
