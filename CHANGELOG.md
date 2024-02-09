@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.5...v0.1.6) (2024-02-09)
+
+
+### Bug Fixes
+
+* handle case when old and new channels are same ([#86](https://github.com/4m-mazi/osekkai-chan/issues/86)) ([4ba79fa](https://github.com/4m-mazi/osekkai-chan/commit/4ba79fa75d051b75330d1317bd7697e340dd3634)), closes [#54](https://github.com/4m-mazi/osekkai-chan/issues/54)
+
 ## [0.1.5](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.4...v0.1.5) (2024-02-06)
 
 
