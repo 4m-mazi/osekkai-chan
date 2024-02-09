@@ -1,126 +1,114 @@
 #[cfg(feature = "dotenv")]
 use dotenvy::dotenv;
-use std::{env, error::Error, sync::Arc, time::Duration};
-use twilight_cache_inmemory::{InMemoryCache, ResourceType};
-use twilight_gateway::{Event, Intents, Shard, ShardId};
-use twilight_http::Client as HttpClient;
-use twilight_mention::Mention;
-use twilight_model::id::{
-    marker::{ChannelMarker, RoleMarker, UserMarker},
-    Id,
+use poise::serenity_prelude::{
+    self as serenity, CacheHttp, ChannelId, Mentionable as _, RoleId, UserId,
 };
 
+use std::{env, str::FromStr, time::Duration};
+
+type Error = Box<dyn std::error::Error + Send + Sync>;
+
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
+async fn main() {
     #[cfg(feature = "dotenv")]
     dotenv().expect(".env file not found");
-    let token: String = env::var("DISCORD_TOKEN")?;
+    let token = get_env("DISCORD_TOKEN");
 
     // Specify intents requesting events about things like new and updated
-    // messages in a guild and direct messages.
-    let intents = Intents::GUILD_MESSAGES | Intents::GUILD_VOICE_STATES | Intents::MESSAGE_CONTENT;
+    let intents = serenity::GatewayIntents::GUILDS
+        | serenity::GatewayIntents::GUILD_MESSAGES
+        | serenity::GatewayIntents::GUILD_VOICE_STATES
+        | serenity::GatewayIntents::MESSAGE_CONTENT;
 
-    // Create a single shard.
-    let mut shard = Shard::new(ShardId::ONE, token.clone(), intents);
+    let framework = poise::Framework::builder()
+        .setup(|_, _, _| Box::pin(async { Ok(()) }))
+        .options(poise::FrameworkOptions {
+            event_handler: |ctx, event, framework, ()| {
+                Box::pin(event_handler(ctx, event, framework))
+            },
+            ..Default::default()
+        })
+        .build();
 
-    // The http client is separate from the gateway, so startup a new
-    // one, also use Arc such that it can be cloned to other threads.
-    let http = Arc::new(HttpClient::new(token));
+    let client = serenity::ClientBuilder::new(token, intents)
+        .framework(framework)
+        .await;
 
-    // Since we only care about messages, make the cache only process messages.
-    let cache = Arc::new(
-        InMemoryCache::builder()
-            .resource_types(ResourceType::VOICE_STATE)
-            .build(),
-    );
-
-    // Startup the event loop to process each event in the event stream as they
-    // come in.
-    loop {
-        let event = match shard.next_event().await {
-            Ok(event) => event,
-            Err(source) => {
-                tracing::warn!(?source, "error receiving event");
-
-                if source.is_fatal() {
-                    break;
-                }
-
-                continue;
-            }
-        };
-        // Update the cache.
-        cache.update(&event);
-
-        // Spawn a new task to handle the event
-        tokio::spawn(handle_event(event, Arc::clone(&http), Arc::clone(&cache)));
-    }
-
-    Ok(())
+    client.unwrap().start().await.unwrap();
 }
 
-async fn handle_event(
-    event: Event,
-    http: Arc<HttpClient>,
-    cache: Arc<InMemoryCache>,
-) -> Result<(), Box<dyn Error + Send + Sync>> {
+fn get_env(key: &str) -> String {
+    env::var(key).expect("Missing `{key}` env var, see README for more information.")
+}
+
+async fn event_handler(
+    ctx: &serenity::Context,
+    event: &serenity::FullEvent,
+    _framework: poise::FrameworkContext<'_, (), Error>,
+) -> Result<(), Error> {
     match event {
-        Event::Ready(_) => {
-            println!("Shard is ready");
+        serenity::FullEvent::Ready { data_about_bot, .. } => {
+            println!("Logged in as {}", data_about_bot.user.name);
         }
-        Event::VoiceStateUpdate(state) => {
-            let Some(channel_id) = state.channel_id else {
+
+        serenity::FullEvent::VoiceStateUpdate { old: _, new } => {
+            let Some(new_channel_id) = new.channel_id else {
                 return Ok(());
             };
-            let voice_channel_id: Id<ChannelMarker> =
-                Id::new(env::var("VOICE_CHANNEL_ID")?.parse().unwrap());
+
             // 指定したチャンネル以外のボイスチャンネルに入ったら何もしない
-            if channel_id != voice_channel_id {
+            if get_env("VOICE_CHANNEL_ID") != new_channel_id.to_string() {
                 return Ok(());
             }
-            // ボイスチャンネルの人数が1人の場合処理を続ける
-            let member_count = cache
-                .voice_channel_states(voice_channel_id)
-                .unwrap()
-                .count();
-            if member_count != 1 {
+
+            let Some(new_channel) = new_channel_id
+                .to_channel(&ctx.http)
+                .await
+                .ok()
+                .and_then(|c| c.guild())
+            else {
                 return Ok(());
+            };
+
+            // ボイスチャンネルの人数が1人の場合処理を続ける
+            match new_channel.members(&ctx.cache) {
+                Ok(m) => {
+                    if m.len() != 1 {
+                        return Ok(());
+                    }
+                }
+                _ => return Ok(()),
             }
 
             // 10秒後にまだそのユーザーが参加していたらメッセージを送信する
             tokio::time::sleep(Duration::from_secs(10)).await;
-            let Some(guild_id) = state.guild_id else {
-                return Ok(());
-            };
-            let Some(current_state) = cache.voice_state(state.0.user_id, guild_id) else {
-                return Ok(());
-            };
-            // ユーザーが指定したチャンネルのボイスチャンネルに入ってるか確認
-            if current_state.channel_id() != voice_channel_id {
-                return Ok(());
-            };
 
-            create_join_message(state.0.user_id, http).await?;
+            // ユーザーが指定したチャンネルのボイスチャンネルに入ってるか確認
+            match new_channel.members(&ctx.cache) {
+                Ok(m) => {
+                    if m.iter().all(|m| m.user.id != new.user_id) {
+                        return Ok(());
+                    }
+                }
+                _ => return Ok(()),
+            }
+
+            create_join_message(new.user_id, &ctx.http).await?;
         }
         _ => {}
     }
-
     Ok(())
 }
 
-async fn create_join_message(
-    user_id: Id<UserMarker>,
-    http: Arc<HttpClient>,
-) -> Result<(), Box<dyn Error + Send + Sync>> {
-    let text_channel_id: Id<ChannelMarker> = Id::new(env::var("TEXT_CHANNEL_ID")?.parse().unwrap());
-    let role_id: Id<RoleMarker> = Id::new(env::var("ROLE_ID")?.parse().unwrap());
-    let message: String = format!(
+async fn create_join_message(user_id: UserId, cache_http: impl CacheHttp) -> Result<(), Error> {
+    let text_channel_id = ChannelId::from_str(get_env("TEXT_CHANNEL_ID").as_str()).unwrap();
+    let role_id = RoleId::from_str(get_env("ROLE_ID").as_str()).unwrap();
+    let message = format!(
         "{}の皆さん{}は暇です！ 誰かカモン〜ヌ！",
         role_id.mention(),
         user_id.mention()
     );
-    http.create_message(text_channel_id)
-        .content(&message)?
-        .await?;
+    text_channel_id.say(cache_http, message).await?;
+
     Ok(())
 }

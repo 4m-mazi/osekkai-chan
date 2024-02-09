@@ -7,23 +7,8 @@ edition = "2021"
 
 [dependencies]
 dotenvy = { optional = true, version = "=0.15.7" }
-futures = "=0.3.30"
-tokio = { version = "=1.36.0", features = ["full"] }
-tracing = "=0.1.40"
-twilight-cache-inmemory = "=0.15.4"
-twilight-gateway = { version = "=0.15.4", default-features = false, features = [
-  "rustls-webpki-roots",
-  "twilight-http",
-  "zlib-stock",
-] }
-twilight-http = { version = "=0.15.4", default-features = false, features = [
-  "decompression",
-  "rustls-webpki-roots",
-] }
-twilight-mention = "=0.15.3"
-twilight-model = "=0.15.4"
-twilight-standby = "=0.15.4"
-twilight-util = { version = "=0.15.4", features = ["builder"] }
+poise = "=0.6.1"
+tokio = { version = "=1.36.0", features = ["rt-multi-thread"] }
 
 [[bin]]
 name = "osekkai-chan"
