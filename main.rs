@@ -51,7 +51,15 @@ async fn event_handler(
             println!("Logged in as {}", data_about_bot.user.name);
         }
 
-        serenity::FullEvent::VoiceStateUpdate { old: _, new } => {
+        serenity::FullEvent::VoiceStateUpdate { old, new } => {
+            // old があるかつ old channel と new channel が一致していたら何もしない
+            if old
+                .as_ref()
+                .is_some_and(|old| old.channel_id == new.channel_id)
+            {
+                return Ok(());
+            }
+
             let Some(new_channel_id) = new.channel_id else {
                 return Ok(());
             };
