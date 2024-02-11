@@ -44,7 +44,7 @@ fn get_env(key: &str) -> String {
 async fn event_handler(
     ctx: &serenity::Context,
     event: &serenity::FullEvent,
-    _framework: poise::FrameworkContext<'_, (), Error>,
+    _: poise::FrameworkContext<'_, (), Error>,
 ) -> Result<(), Error> {
     match event {
         serenity::FullEvent::Ready { data_about_bot, .. } => {
@@ -73,7 +73,7 @@ async fn event_handler(
                 .to_channel(&ctx.http)
                 .await
                 .ok()
-                .and_then(|c| c.guild())
+                .and_then(poise::serenity_prelude::Channel::guild)
             else {
                 return Ok(());
             };

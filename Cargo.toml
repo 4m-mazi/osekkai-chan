@@ -17,3 +17,6 @@ path = "main.rs"
 [features]
 default = ["dotenv"]
 dotenv = ["dep:dotenvy"]
+
+[lints.clippy]
+pedantic = "warn"
