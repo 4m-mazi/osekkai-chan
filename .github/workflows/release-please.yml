@@ -15,9 +15,16 @@ jobs:
       release_created: ${{ steps.release-please.outputs.release_created }}
       tag_name: ${{ steps.release-please.outputs.tag_name }}
     steps:
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@f4c6bf6752984b3a29fcc135a5e70eb792c40c6b # v1.8.0
+        with:
+          app-id: ${{ secrets.MAZI_RELEASE_APP_ID }}
+          private-key: ${{ secrets.MAZI_RELEASE_APP_PRIVATE_KEY }}
       - uses: google-github-actions/release-please-action@cc61a07e2da466bebbc19b3a7dd01d6aecb20d1e # v4.0.2
         id: release-please
         with:
+          token: ${{ steps.generate_token.outputs.token }}
           config-file: .github/files/release-please/release-please-config.json
           manifest-file: .github/files/release-please/.release-please-manifest.json
 
