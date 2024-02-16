@@ -16,9 +16,12 @@ on:
         value: https://ghcr.io/${{ github.repository }}
 
 env:
+  # const
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   BINARY_NAME: ${{ github.event.repository.name }}
+  # env
+  RUSTFLAGS: "-Dwarnings"
 
 jobs:
   build:
