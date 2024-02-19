@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+
+name: rust info
+description: get rust info
+
+outputs:
+  host:
+    description: host "x86_64-unknown-linux-gnu"
+    value: ${{steps.rustc.outputs.host}}
+
+runs:
+  using: composite
+  steps:
+    - id: rustc
+      run: |
+        echo "host=$(rustc -vV | awk '/host/ { print $2 }')" >> $GITHUB_OUTPUT
+      shell: bash
