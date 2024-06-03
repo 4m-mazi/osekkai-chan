@@ -64,7 +64,7 @@ jobs:
           key: ${{ matrix.target }}
       - name: Install cross
         if: ${{ !matrix.os && matrix.use-cross }}
-        uses: taiki-e/install-action@4e38715ddc7c4e1fd3e44ab4c124a2dcca7306fd # v2.34.0
+        uses: taiki-e/install-action@9b00020f6f75a34aa11872329c46b410780fda7e # v2.34.2
         with:
           tool: cross
       - run: mkdir dist
