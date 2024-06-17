@@ -3,7 +3,7 @@
 {
   "name": "Rust",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/rust:1-1-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/rust:1-1-bookworm@sha256:1a12c3aca486b4545e083910fae2159d30e1dd0f4553161bd258438b14d6f93d",
 
   // Use 'mounts' to make the cargo cache persistent in a Docker Volume.
   "mounts": [
@@ -30,7 +30,7 @@
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/rust:1": {}
+    "ghcr.io/devcontainers/features/rust:1@sha256:aba6f47303b197976902bf544c786b5efecc03c238ff593583e5e74dfa9c7ccb": {}
   }
 
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
