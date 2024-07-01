@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.7...v0.1.8) (2024-07-01)
+
+
+### Dependencies
+
+* update rust crate tokio to v1.38.0 ([#248](https://github.com/4m-mazi/osekkai-chan/issues/248)) ([7542e09](https://github.com/4m-mazi/osekkai-chan/commit/7542e0949de0839a1ecde71a784beb3fcb259a7f))
+
 ## [0.1.7](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.6...v0.1.7) (2024-05-25)
 
 
