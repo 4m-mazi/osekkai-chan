@@ -20,3 +20,8 @@ dotenv = ["dep:dotenvy"]
 
 [lints.clippy]
 pedantic = "warn"
+
+[profile.release]
+strip = "symbols"
+lto = "fat"
+codegen-units = 1
