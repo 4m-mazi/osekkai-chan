@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.9](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.8...v0.1.9) (2024-08-23)
+
+
+### Dependencies
+
+* update rust crate tokio to v1.39.3 ([#337](https://github.com/4m-mazi/osekkai-chan/issues/337)) ([acf12c1](https://github.com/4m-mazi/osekkai-chan/commit/acf12c1361b6d3469a56896adf57171fa6702f99))
+
+
+### Build System
+
+* switch to buildah ([#349](https://github.com/4m-mazi/osekkai-chan/issues/349)) ([ccf95b9](https://github.com/4m-mazi/osekkai-chan/commit/ccf95b9889094969332a82ad47c0958c8e981873))
+* update release profile ([#344](https://github.com/4m-mazi/osekkai-chan/issues/344)) ([3a66e32](https://github.com/4m-mazi/osekkai-chan/commit/3a66e325d06883ca4e01cebefa2eb0a8bf9e0cdc))
+
 ## [0.1.8](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.7...v0.1.8) (2024-08-04)
 
 
