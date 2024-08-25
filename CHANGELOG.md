@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.9...v0.1.10) (2024-08-25)
+
+
+### Build System
+
+* use BINARY_NAME ([#356](https://github.com/4m-mazi/osekkai-chan/issues/356)) ([27601c0](https://github.com/4m-mazi/osekkai-chan/commit/27601c0e4c00a0a4facb8bd6219f6b32dde85afb))
+
 ## [0.1.9](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.8...v0.1.9) (2024-08-23)
 
 
