@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 dotenvy = { optional = true, version = "=0.15.7" }
 poise = "=0.6.1"
-tokio = { version = "=1.39.3", features = ["rt-multi-thread"] }
+tokio = { version = "=1.40.0", features = ["rt-multi-thread"] }
 
 [[bin]]
 name = "osekkai-chan"
