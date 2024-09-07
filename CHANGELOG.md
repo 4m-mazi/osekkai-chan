@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.11](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.10...v0.1.11) (2024-09-07)
+
+
+### Dependencies
+
+* lock file maintenance ([#364](https://github.com/4m-mazi/osekkai-chan/issues/364)) ([06eff07](https://github.com/4m-mazi/osekkai-chan/commit/06eff07f7b8457fac28da83817d741f370c21a8c))
+* update rust crate tokio to v1.40.0 ([#361](https://github.com/4m-mazi/osekkai-chan/issues/361)) ([c757357](https://github.com/4m-mazi/osekkai-chan/commit/c757357838f9ef0e5b0e12948212856e1d28c1e3))
+
 ## [0.1.10](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.9...v0.1.10) (2024-08-25)
 
 
