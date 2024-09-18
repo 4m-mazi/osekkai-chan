@@ -22,6 +22,6 @@ jobs:
         uses: ./.github/actions/rust-info
       - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
         with:
-          key: ${{ steps.rustc.outputs.host }}
+          key: dev-${{ steps.rustc.outputs.host }}
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features
