@@ -835,7 +835,7 @@ checksum = "33ea5043e58958ee56f3e15a90aee535795cd7dfd319846288d93c5b57d85cbe"
 
 [[package]]
 name = "osekkai-chan"
-version = "0.1.11"
+version = "0.1.12"
 dependencies = [
  "dotenvy",
  "poise",
