@@ -88,7 +88,7 @@ jobs:
           tool: cross
       - run: mkdir dist
       - run: ${{ matrix.platform.command }} rustc --locked ${{ matrix.profile == 'release' && '--release' || '' }} --no-default-features --target=${{ matrix.platform.target }} -- --emit=link=dist/${{ needs.env.outputs.BINARY_NAME }}
-      - uses: actions/upload-artifact@604373da6381bf24206979c74d06a550515601b9 # v4.4.1
+      - uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
         with:
           name: ${{ matrix.profile }}-${{ matrix.platform.target }}
           path: |
