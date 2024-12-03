@@ -10,10 +10,6 @@ dotenvy = { optional = true, version = "=0.15.7" }
 poise = "=0.6.1"
 tokio = { version = "=1.41.1", features = ["rt-multi-thread"] }
 
-[[bin]]
-name = "osekkai-chan"
-path = "main.rs"
-
 [features]
 default = ["dotenv"]
 dotenv = ["dep:dotenvy"]
