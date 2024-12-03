@@ -14,6 +14,14 @@ async fn main() {
     dotenv().expect(".env file not found");
     let token = get_env("DISCORD_TOKEN");
 
+    run(token).await;
+}
+
+fn get_env(key: &str) -> String {
+    env::var(key).expect("Missing `{key}` env var, see README for more information.")
+}
+
+async fn run(token: String) {
     // Specify intents requesting events about things like new and updated
     let intents = serenity::GatewayIntents::GUILDS
         | serenity::GatewayIntents::GUILD_MESSAGES
@@ -35,10 +43,6 @@ async fn main() {
         .await;
 
     client.unwrap().start().await.unwrap();
-}
-
-fn get_env(key: &str) -> String {
-    env::var(key).expect("Missing `{key}` env var, see README for more information.")
 }
 
 async fn event_handler(
