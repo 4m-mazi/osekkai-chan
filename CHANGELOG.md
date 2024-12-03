@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.19](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.18...v0.1.19) (2024-12-03)
+
+
+### Dependencies
+
+* update rust crate tokio to v1.42.0 ([#487](https://github.com/4m-mazi/osekkai-chan/issues/487)) ([2bd14ce](https://github.com/4m-mazi/osekkai-chan/commit/2bd14ce9e207f6641ce0bcba0c321ec4031a5304))
+
+
+### Code Refactoring
+
+* move main.rs to src directory ([#484](https://github.com/4m-mazi/osekkai-chan/issues/484)) ([c46bc42](https://github.com/4m-mazi/osekkai-chan/commit/c46bc422ff324a8e63d90a1178aa31541fbc7cc3))
+
 ## [0.1.18](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.17...v0.1.18) (2024-11-07)
 
 
