@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.20](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.19...v0.1.20) (2024-12-30)
+
+
+### Code Refactoring
+
+* extract to `run` function ([#486](https://github.com/4m-mazi/osekkai-chan/issues/486)) ([5384906](https://github.com/4m-mazi/osekkai-chan/commit/5384906fdb319e778582a2119fe8d10dcc4a4a2d))
+
 ## [0.1.19](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.18...v0.1.19) (2024-12-03)
 
 
