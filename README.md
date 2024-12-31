@@ -1,7 +1,7 @@
 # osekkai-chan
 入隊出を通知するbot
 
-![preview](https://github.com/4m-mazi/osekkai-chan/assets/33943897/17769e39-6264-448b-9177-c76a99042dad)
+![preview](https://github.com/user-attachments/assets/b71f42ef-399d-4d47-8c0c-0b10be61f560)
 
 ## 必要な環境変数
 
