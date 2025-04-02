@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.25](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.24...v0.1.25) (2025-04-02)
+
+
+### Dependencies
+
+* lock file maintenance ([#608](https://github.com/4m-mazi/osekkai-chan/issues/608)) ([b4612e2](https://github.com/4m-mazi/osekkai-chan/commit/b4612e226cd9738dcb9f0194814083fc4ea5d612))
+* lock file maintenance ([#617](https://github.com/4m-mazi/osekkai-chan/issues/617)) ([53f80de](https://github.com/4m-mazi/osekkai-chan/commit/53f80de5303d8df3bd3f53de389817d4c403e3d3))
+
 ## [0.1.24](https://github.com/4m-mazi/osekkai-chan/compare/v0.1.23...v0.1.24) (2025-03-19)
 
 
