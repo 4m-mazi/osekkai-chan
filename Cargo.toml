@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 dotenvy = { optional = true, version = "=0.15.7" }
-poise = "=0.6.1"
+poise = "=0.6.2"
 tokio = { version = "=1.51.0", features = ["rt-multi-thread"] }
 
 [features]
