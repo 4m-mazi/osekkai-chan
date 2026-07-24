@@ -37,7 +37,7 @@ permissions: {}
 
 jobs:
   renovate:
-    uses: 4m-mazi/renovate-workflow/.github/workflows/_renovate.yml@main
+    uses: 4m-mazi/renovate-workflow/.github/workflows/_renovate.yml@482d44577b350b8bbafc1b8546047ac0f42de20d # main
     with:
       repoCache: ${{ inputs.repoCache }}
     secrets:
