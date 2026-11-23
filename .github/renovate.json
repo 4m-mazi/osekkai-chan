@@ -13,7 +13,9 @@
     ":rebaseStalePrs",
     ":semanticCommits"
   ],
-  "dependencyDashboardAutoclose": true,
+  "dependencyDashboard": {
+    "autoclose": true
+  },
   "prConcurrentLimit": 3,
   "packageRules": [
     {
