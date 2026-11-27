@@ -31,9 +31,7 @@ async fn run(token: String) {
     let framework = poise::Framework::builder()
         .setup(|_, _, _| Box::pin(async { Ok(()) }))
         .options(poise::FrameworkOptions {
-            event_handler: |ctx, event, framework, ()| {
-                Box::pin(event_handler(ctx, event, framework))
-            },
+            event_handler: |ctx, event| Box::pin(event_handler(ctx.serenity_context, event)),
             ..Default::default()
         })
         .build();
@@ -48,7 +46,6 @@ async fn run(token: String) {
 async fn event_handler(
     ctx: &serenity::Context,
     event: &serenity::FullEvent,
-    _: poise::FrameworkContext<'_, (), Error>,
 ) -> Result<(), Error> {
     match event {
         serenity::FullEvent::Ready { data_about_bot, .. } => {
